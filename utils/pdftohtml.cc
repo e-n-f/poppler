@@ -80,6 +80,7 @@ GBool xml=gFalse;
 static GBool errQuiet=gFalse;
 static GBool noDrm=gFalse;
 double wordBreakThreshold=10;  // 10%, below converted into a coefficient - 0.1
+double columnBreakThreshold=100;  // 100%, below converted into a coefficient - 1.0
 
 GBool showHidden = gFalse;
 GBool noMerge = gFalse;
@@ -143,7 +144,9 @@ static const ArgDesc argDesc[] = {
   {"-nodrm", argFlag, &noDrm, 0,
    "override document DRM settings"},
   {"-wbt",    argFP,    &wordBreakThreshold, 0,
-   "word break threshold (default 10 percent)"},
+   "word break threshold (default 10 percent of an em)"},
+  {"-cbt",    argFP,    &columnBreakThreshold, 0,
+   "column break threshold (default 100 percent of an em)"},
   {"-fontfullname", argFlag, &fontFullName, 0,
    "outputs font full name"},   
   {NULL}
@@ -223,6 +226,7 @@ int main(int argc, char *argv[]) {
 
   // convert from user-friendly percents into a coefficient
   wordBreakThreshold /= 100.0;
+  columnBreakThreshold /= 100.0;
 
   // open PDF file
   if (ownerPassword[0]) {

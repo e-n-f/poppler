@@ -108,6 +108,7 @@ extern GBool showHidden;
 extern GBool noMerge;
 
 extern double wordBreakThreshold;
+extern double columnBreakThreshold;
 
 static GBool debug = gFalse;
 static GooString *gstr_buff0 = NULL; // a workspace in which I format strings
@@ -614,7 +615,7 @@ void HtmlPage::coalesce() {
 	   ||
 	   (!rawOrder && str2->yMin < str1->yMax)
 	  ) &&
-	  (horSpace > -0.5 * space && horSpace < space)
+	  (horSpace > -0.5 * space && horSpace < columnBreakThreshold * space)
 	 ) ||
        	 (vertSpace >= 0 && vertSpace < 0.5 * space && addLineBreak)
 	) &&
